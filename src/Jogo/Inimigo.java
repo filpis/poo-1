@@ -3,12 +3,15 @@ package Jogo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class Inimigo extends ObjetoMovimentavel {
-    private ImageIcon alien1, alien2, alien3;
-    private ImageIcon alienBoss1, alienBoss2, alienBoss3;
+    ImageIcon alien1 = new ImageIcon("images/alien1Skin.gif"); 
+    ImageIcon alien2 = new ImageIcon("images/alien2Skin.gif"); 
+    ImageIcon alien3 = new ImageIcon("images/alien3Skin.gif");
+    ImageIcon alienBoss1 = new ImageIcon("images/boss1.gif");
+    ImageIcon alienBoss2 = new ImageIcon("images/boss2.gif"); 
+    ImageIcon alienBoss3 = new ImageIcon("images/boss3.gif");
     private int tipo, largura, altura;
 
     public Inimigo(int xPos, int yPos, int xVel, int yVel, int tipo, Color cor, int largura, int altura) {

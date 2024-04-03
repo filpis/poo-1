@@ -7,7 +7,9 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public class Nave extends ObjetoControlavel {
-    ImageIcon nave, inimigoBonus, vidaNave;
+    ImageIcon nave = new ImageIcon("images/shipSkin.gif");
+    ImageIcon inimigoBonus = new ImageIcon("images/bonusEnemySkin.gif");
+    ImageIcon vidaNave = new ImageIcon("images/shipSkinSmall.gif");
     
     public Nave(int xPos, int yPos, Color cor, Teclado controle){
         super(xPos, yPos, cor, controle);

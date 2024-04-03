@@ -3,7 +3,6 @@ package Jogo;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import javax.swing.ImageIcon;
 
 public class Raio extends ObjetoMovimentavel{
     
@@ -14,6 +13,7 @@ public class Raio extends ObjetoMovimentavel{
     @Override
     public void desenha(Graphics g){
         g.setColor(getCor());
+        g.fillRect(this.getXPos(), this.getYPos(), 7, 15);
     }
     
     @Override
