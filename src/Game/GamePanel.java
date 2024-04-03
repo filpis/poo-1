@@ -199,26 +199,26 @@ public class GamePanel extends JPanel {
 
         // Sets the score display
         g.setColor(Color.WHITE);
-        g.drawString("Score: " + score, 260, 20);
+        g.drawString("Pontos: " + score, 260, 20);
 
         // Sets the life counter display
         g.setColor(Color.WHITE);
-        g.drawString("Lives:", 11, 20);
+        g.drawString("Vidas:", 11, 20);
         for (int index = 0; index < lifeList.size(); index++) {
             lifeList.get(index).lifeDraw(g);
         }
         // Sets level display
         g.setColor(Color.WHITE);
-        g.drawString("Level " + level, 750, 20);
+        g.drawString("Fase " + level, 750, 20);
 
         // Sets Highscore display
         g.setColor(Color.WHITE);
-        g.drawString("Highscore: " + highScore, 440, 20);
+        g.drawString("Recorde de pontos: " + highScore, 440, 20);
 
         // Draws a health display for boss level
         if (level == 3 || level == 6 || level == 9 || level == 12) {
             g.setColor(Color.WHITE);
-            g.drawString("Boss Health: " + bossHealth, 352, 600);
+            g.drawString("Chefão: " + bossHealth, 352, 600);
         }
     }
 
