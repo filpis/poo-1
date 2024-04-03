@@ -1,6 +1,8 @@
 
 package Game;
 
+import Game.KeyboardControllers.KeyboardController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -56,7 +58,6 @@ public class GamePanel extends JPanel {
     private ArrayList<Enemy> enemyList = new ArrayList();
     private ArrayList<Shield> shieldList = new ArrayList();
     private ArrayList<Beam> beamList = new ArrayList();
-    private ImageIcon background = new ImageIcon("images/backgroundSkin.jpg");
 
 
 
@@ -80,8 +81,10 @@ public class GamePanel extends JPanel {
             enemyList.add(enemy);
         }
         if (level == 1) {
-            JOptionPane.showMessageDialog(null, "Seja bem-vindo ao Space Intruders!\n\nInstruções do jogo:\n\n- Use as setas pra esquerda e direita para mover a nave\n- Precione espaço para atirar\n- A cada nível, os inimigos ficam mais rápidos"
-                    + "\n- Um inimigo bônus aparecerá aleatoriamente\n- Atire para ganhar pontos extras!\n- Pressione R para redefinir a pontuação mais alta!\n- TENHA UMA BOA JOGATINA!");
+            JOptionPane.showMessageDialog(null, "Seja bem-vindo ao Space Wars!\n\nInstruções do jogo:\n\n- Use as setas pra esquerda e direita para mover a nave\n- Precione espaço para atirar\n- A cada nível, os inimigos ficam mais rápidos\n- Atire para ganhar pontos extras!\n- TENHA UMA BOA JOGATINA!", "Título Personalizado", JOptionPane.INFORMATION_MESSAGE);
+
+//            JOptionPane.showMessageDialog(null, "Seja bem-vindo ao Space Wars!\n\nInstruções do jogo:\n\n- Use as setas pra esquerda e direita para mover a nave\n- Precione espaço para atirar\n- A cada nível, os inimigos ficam mais rápidos"
+//                    + "\n- Atire para ganhar pontos extras!\n- TENHA UMA BOA JOGATINA!");
         }
         controller.resetController();
 
@@ -105,7 +108,7 @@ public class GamePanel extends JPanel {
     @Override
     public void paint(Graphics g) {
 
-        background.paintIcon(null, g, 0, -150);
+//        background.paintIcon(null, g, 0, -150);
 
         if (bullet != null) {
             if (hitMarker) {
@@ -239,6 +242,8 @@ public class GamePanel extends JPanel {
         }
         // Adds option to reset highScore
         if (controller.getKeyStatus(82)) {
+            final ImageIcon icon = new ImageIcon("C:\\Users\\Test\\Internet.png");
+
             int answer = JOptionPane.showConfirmDialog(null, "Definir como pontuação mais alta?", ":)", 0);
             controller.resetController();
             if (answer == 0) {
@@ -457,9 +462,9 @@ public class GamePanel extends JPanel {
             lifeList.remove(index);
         }
         else if (lifeList.isEmpty()) {
-            String[] options = {"Continuar", "Sair"};
+            Object[] options = {"Jogar", "Sair"};
 
-            int answer = JOptionPane.showConfirmDialog(null, "Jogar novamente?", score + " pontos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+            int answer = JOptionPane.showOptionDialog(null, "Jogar novamente?", score + " pontos", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if (answer == 0) {
                 lifeList.clear();
                 enemyList.clear();

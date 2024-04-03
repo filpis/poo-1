@@ -1,6 +1,7 @@
 
 package Game;
 
+import Game.KeyboardControllers.KeyboardController;
 import interfaces.Moveable;
 
 import java.awt.Color;
