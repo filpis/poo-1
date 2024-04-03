@@ -34,13 +34,12 @@ public class Ship extends ControlledGameObject {
 
     @Override
     public void move() {
-        if (control.getKeyStatus(37)) { // Left arrow key press
+        if (control.getKeyStatus(37)) {
             xPos -= 10;
         }
-        if (control.getKeyStatus(39)) { // Right arrow key press
+        if (control.getKeyStatus(39)) {
             xPos += 10;
         }
-        // Move from edge to edge without stopping
         if (xPos > 800) {
             xPos = -50;
         }

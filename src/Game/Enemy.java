@@ -17,7 +17,6 @@ public class Enemy extends MovingGameObject {
     private int enemytype, width, height;
 
     
-    // Constuctor for any enemy
     public Enemy(int xPosition, int yPosition, int xVelocity, int yVelocity, int enemyType, Color color, int width, int height) {
         super(xPosition, yPosition, xVelocity, yVelocity, color);
         this.enemytype = enemyType;
@@ -28,16 +27,12 @@ public class Enemy extends MovingGameObject {
     @Override
     // Draws alien
     public void draw(Graphics g) {
-        // Varient 1
         if (this.enemytype % 3 == 0) {
             alien1.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-        // Varient 2
         } else if (this.enemytype % 3 == 1 && this.enemytype != 100) {
             alien2.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-        // Varient 3
         } else if (this.enemytype % 3 == 2) {
             alien3.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-        // Boss Enemy
         } if (this.enemytype == 100)
         {
             if(GamePanel. getBossHealth()>20){
@@ -52,14 +47,12 @@ public class Enemy extends MovingGameObject {
         }
     }
 
-    // Gets the hitbox for normal eneimes
     @Override
     public Rectangle getBounds() {
         Rectangle enemyHitBox = new Rectangle(this.getXPosition(), this.getYPosition(), width, height);
         return enemyHitBox;
     }
 
-    // Used to move all enemies
     @Override
     public void move() {
         xPos += xVel;

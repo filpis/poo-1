@@ -120,15 +120,12 @@ public class GamePanel extends JPanel {
                 }
             }
         }
-        // Draws the player's ship
         playerShip.draw(g);
 
-        // Draws 3 evenly-spaced shields
         for (int index = 0; index < shieldList.size(); index++) {
             shieldList.get(index).draw(g);
         }
 
-        //Draws 3 different kinds of aliens
         try {
             for (int index = 0; index < enemyList.size(); index++) {
                 enemyList.get(index).draw(g);
@@ -137,33 +134,27 @@ public class GamePanel extends JPanel {
         } catch (IndexOutOfBoundsException e) {
         }
 
-        // Draw a bullet on space bar press
         if (controller.getKeyStatus(32)) {
             if (newBulletCanFire) {
                 bullet = new Bullet(playerShip.getXPosition() + 22, playerShip.getYPosition() - 20, 0, Color.RED);
-//                AudioPlayer.player.start(bulletSoundAudio); // Plays bullet sound
                 newBulletCanFire = false;
             }
         }
-        // Only attempts to draw bullet after key press
         if (bullet != null) {
             bullet.draw(g);
         }
 
-        // Generates random beams shot from enemies
         if (level != 3 && level != 6 && level != 9 && level != 12) {
             if (newBeamCanFire) {
                 for (int index = 0; index < enemyList.size(); index++) {
                     if (r.nextInt(30) == index) {
                         beam = new Beam(enemyList.get(index).getXPosition(), enemyList.get(index).getYPosition(),  Color.YELLOW);
                         beamList.add(beam);
-//                        AudioPlayer.player.start(beamSoundAudio); // Plays beam sound for normal enemies
                     }
                     newBeamCanFire = false;
                 }
             }
         }
-        // Generates beams at a faster rate for boss
         if (level == 3 || level == 6 || level == 9 || level == 12) {
             if (newBeamCanFire) {
                 for (int index = 0; index < enemyList.size(); index++) {
@@ -174,17 +165,14 @@ public class GamePanel extends JPanel {
                         beamList.add(beam);
                         beamList.add(beam2);
                         beamList.add(beam3);
-//                        AudioPlayer.player.start(beamSoundAudio); // Plays beam sound for boss
                     }
                     newBeamCanFire = false;
                 }
             }
         }
-        // Draws the generated beams
         for (int index = 0; index < beamList.size(); index++) {
             beamList.get(index).draw(g);
         }
-        // Generates random bonus enemy
         if (newBonusEnemy) {
             if (r.nextInt(3000) == 1500) {
                 bonusEnemy = new Ship(-50, 30, Color.RED, null);
@@ -192,45 +180,35 @@ public class GamePanel extends JPanel {
                 newBonusEnemy = false;
             }
         }
-        // Draws bonus enemy
         for (int index = 0; index < bonusEnemyList.size(); index++) {
             bonusEnemyList.get(index).bonusDraw(g);
         }
 
-        // Sets the score display
         g.setColor(Color.WHITE);
         g.drawString("Pontos: " + score, 260, 20);
 
-        // Sets the life counter display
         g.setColor(Color.WHITE);
         g.drawString("Vidas:", 11, 20);
         for (int index = 0; index < lifeList.size(); index++) {
             lifeList.get(index).lifeDraw(g);
         }
-        // Sets level display
         g.setColor(Color.WHITE);
         g.drawString("Fase " + level, 750, 20);
 
-        // Sets Highscore display
         g.setColor(Color.WHITE);
         g.drawString("Recorde de pontos: " + highScore, 440, 20);
 
-        // Draws a health display for boss level
         if (level == 3 || level == 6 || level == 9 || level == 12) {
             g.setColor(Color.WHITE);
             g.drawString("Chefão: " + bossHealth, 352, 600);
         }
     }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// UPDATE GAME STATE
 
     public void updateGameState(int frameNumber) {
 
-        // Allows player to move left and right
         playerShip.move();
 
-        // Updates highscore
         try {
             Scanner fileScan = new Scanner(f);
             while (fileScan.hasNextInt()) {
@@ -240,7 +218,6 @@ public class GamePanel extends JPanel {
             }
         } catch (FileNotFoundException e) {
         }
-        // Adds option to reset highScore
         if (controller.getKeyStatus(82)) {
             final ImageIcon icon = new ImageIcon("C:\\Users\\Test\\Internet.png");
 
@@ -256,7 +233,6 @@ public class GamePanel extends JPanel {
                 }
             }
         }
-        // Updates the high score text file if your score exceeds the previous high score
         try {
             if (score > highScore) {
                 String scoreString = Integer.toString(score);
@@ -267,7 +243,6 @@ public class GamePanel extends JPanel {
         } catch (FileNotFoundException e) {
         }
 
-        // Makes enemies move and change direction at borders
         if ((enemyList.get(enemyList.size() - 1).getXPosition() + enemyList.get(enemyList.size() - 1).getXVelocity()) > 760 || (enemyList.get(0).getXPosition() + enemyList.get(0).getXVelocity()) < 0) {
             for (int index = 0; index < enemyList.size(); index++) {
                 enemyList.get(index).setXVelocity(enemyList.get(index).getXVelocity() * -1);
@@ -279,75 +254,60 @@ public class GamePanel extends JPanel {
             }
         }
 
-        // Move bullet
         if (bullet != null) {
             bullet.setYPosition(bullet.getYPosition() - 15);
             if (bullet.getYPosition() < 0) {
                 newBulletCanFire = true;
             }
 
-            // Checks for collisions with normal enemies
             for (int index = 0; index < enemyList.size(); index++) {
                 if (bullet.isColliding(enemyList.get(index))) {
-//                    AudioPlayer.player.start(hitSoundAudio); // Plays hitmarker sound if you hit an enemy
                     bullet = new Bullet(0, 0, 0, null);
                     newBulletCanFire = true;
-                    // Updates score for normal levels
                     if (level != 3 && level != 6 && level != 9 && level != 12) {
                         score += 100;
                         hitMarker = true;
-                        markerX = enemyList.get(index).getXPosition(); // Gets positions that the "+ 100" spawns off of
+                        markerX = enemyList.get(index).getXPosition();
                         markerY = enemyList.get(index).getYPosition();
                         enemyList.remove(index);
 
                     }
-                    // Updates score for boss levels
                     if (level == 3 || level == 6 || level == 9 || level == 12) {
                         hitMarker = true;
-                        markerX = enemyList.get(index).getXPosition(); // Gets positions that the "- 1" spawns off of
+                        markerX = enemyList.get(index).getXPosition();
                         markerY = enemyList.get(index).getYPosition() + 165;
                         bossHealth -= 1;
                         if (bossHealth == 0) {
                             enemyList.remove(index);
-                            score += 9000;// Bonus score for defeating boss
+                            score += 9000;
                         }
                     }
                 }
             }
 
-            // Checks for collisions with shield and bullets
             for (int index = 0; index < shieldList.size(); index++) {
                 if (bullet.isColliding(shieldList.get(index))) {
-                    // Each if statement changes color of the shield, indicating "strength"
-                    // STRONG
+
                     if (shieldList.get(index).getColor() == Color.RED) {
                         shieldList.get(index).setColor(Color.ORANGE);
-//                        AudioPlayer.player.start(shieldSoundAudio); // Plays sound if shield takes damage
                         bullet = new Bullet(0, 0, 0, null);
                         newBulletCanFire = true;
-                    // GOOD
                     } else if (shieldList.get(index).getColor() == Color.ORANGE) {
                         shieldList.get(index).setColor(Color.YELLOW);
-//                        AudioPlayer.player.start(shieldSoundAudio);
                         bullet = new Bullet(0, 0, 0, null);
                         newBulletCanFire = true;
-                    // OKAY
                     } else if (shieldList.get(index).getColor() == Color.YELLOW) {
                         shieldList.get(index).setColor(Color.WHITE);
-//                        AudioPlayer.player.start(shieldSoundAudio);
                         bullet = new Bullet(0, 0, 0, null);
                         newBulletCanFire = true;
-                    // WEAK, BREAKS ON HIT
                     } else if (shieldList.get(index).getColor() == Color.WHITE) {
                         shieldList.remove(index);
-//                        AudioPlayer.player.start(shieldSoundAudio);
                         bullet = new Bullet(0, 0, 0, null);
                         newBulletCanFire = true;
                     }
                 }
             }
         }
-        // Moves bonus enemy
         if (!bonusEnemyList.isEmpty()) {
             for (int index = 0; index < bonusEnemyList.size(); index++) {
                 bonusEnemyList.get(index).setXPosition(bonusEnemyList.get(index).getXPosition() + (2));
@@ -356,7 +316,6 @@ public class GamePanel extends JPanel {
                     newBonusEnemy = true;
                 }
             }
-            // bonus enemy and bullet collsion
             for (int index = 0; index < bonusEnemyList.size(); index++) {
                 if (bullet != null) {
                     if (bonusEnemyList.get(index).isColliding(bullet)) {
@@ -364,8 +323,7 @@ public class GamePanel extends JPanel {
                         bullet = new Bullet(0, 0, 0, null);
                         newBulletCanFire = true;
                         newBonusEnemy = true;
-//                        AudioPlayer.player.start(bonusSoundAudio); // Plays sound if player hits a bonus enemy
-                        score += 5000; // add bonus to score on hit
+                        score += 5000;
                     }
                 }
             }
@@ -381,7 +339,6 @@ public class GamePanel extends JPanel {
                 }
             }
         }
-        // Moves beams at a faster speed for boss
         if (level == 3 || level == 6 || level == 9 || level == 12) {
             if (beam != null) {
                 for (int index = 0; index < beamList.size(); index++) {
@@ -393,30 +350,21 @@ public class GamePanel extends JPanel {
             }
         }
 
-        // Checks for beam and shield collisions
         try {
             for (int j = 0; j < shieldList.size(); j++) {
                 for (int index = 0; index < beamList.size(); index++) {
                     if (beamList.get(index).isColliding(shieldList.get(j))) {
-                        // STRONG
                         if (shieldList.get(j).getColor() == Color.RED) {
                             shieldList.get(j).setColor(Color.ORANGE);
-//                            AudioPlayer.player.start(shieldSoundAudio); // Plays sound if shield takes damage
                             beamList.remove(index);
-                        // GOOD
                         } else if (shieldList.get(j).getColor() == Color.ORANGE) {
                             shieldList.get(j).setColor(Color.YELLOW);
-//                            AudioPlayer.player.start(shieldSoundAudio);
                             beamList.remove(index);
-                        // OKAY
                         } else if (shieldList.get(j).getColor() == Color.YELLOW) {
                             shieldList.get(j).setColor(Color.WHITE);
-//                            AudioPlayer.player.start(shieldSoundAudio);
                             beamList.remove(index);
-                        // WEAK, BREAKS ON HIT
                         } else if (shieldList.get(j).getColor() == Color.WHITE) {
                             shieldList.remove(j);
-//                            AudioPlayer.player.start(shieldSoundAudio);
                             beamList.remove(index);
                         }
                     }
@@ -428,7 +376,7 @@ public class GamePanel extends JPanel {
         for (int index = 0; index < beamList.size(); index++) {
             if (beamList.get(index).isColliding(playerShip)) {
                 beamList.remove(index);
-                lifeList.remove(lifeList.size() - 1); // Removes life if hit by bullet
+                lifeList.remove(lifeList.size() - 1);
             }
         }
 
@@ -436,14 +384,12 @@ public class GamePanel extends JPanel {
             newBeamCanFire = true;
         }
 
-        //Destroys shields if aliens collide with them
         for (int input = 0; input < enemyList.size(); input++) {
             for (int j = 0; j < shieldList.size(); j++) {
                 if (enemyList.get(input).isColliding(shieldList.get(j))) {
                     shieldList.remove(j);
                 }
             }
-            // If aliens exceed this X Position, you reset the level and lose a life
             if (enemyList.get(input).getYPosition() + 50 >= 750) {
                 enemyList.clear();
                 shieldList.clear();
@@ -451,12 +397,10 @@ public class GamePanel extends JPanel {
                 beamList.clear();
                 bossHealth = 30;
                 numberOfLives -= 1;
-//                AudioPlayer.player.start(deathSoundAudio); // Plays death sound when enemies reach bottom
                 setupGame();
             }
         }
 
-        //Updates the life counter display
         if (playerShip.isColliding) {
             int index = lifeList.size() - 1;
             lifeList.remove(index);
