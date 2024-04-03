@@ -1,13 +1,11 @@
 
 package Game;
 
+import interfaces.Drawable;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 
-/**
- *
- * @author Spartan Tech
- */
 public abstract class GameObject implements Drawable {
 
     int xPos;
@@ -17,7 +15,6 @@ public abstract class GameObject implements Drawable {
     
     public GameObject(){};
     
-    // Constuctor for any Game Object
     public GameObject(int xPosition, int yPosition, Color color) {
         this.xPos = xPosition;
         this.yPos = yPosition;

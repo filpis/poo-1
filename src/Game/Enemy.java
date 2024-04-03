@@ -1,16 +1,10 @@
 
 package Game;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.*;
 
-/**
- *
- * @author Spartan Tech
- */
+
 public class Enemy extends MovingGameObject {
 
     ImageIcon alien1 = new ImageIcon("images/alien1Skin.gif");

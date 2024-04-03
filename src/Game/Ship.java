@@ -1,65 +1,43 @@
-
 package Game;
+import javax.swing.*;
+import java.awt.*;
 
-import Controller.KeyboardController;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import javax.swing.ImageIcon;
-
-/**
- *
- * @author Spartan Tech
- */
 public class Ship extends ControlledGameObject {
 
-    ImageIcon ship = new ImageIcon("images/shipSkin.gif");
-    ImageIcon bonusEnemy = new ImageIcon("images/bonusEnemySkin.gif");
-    ImageIcon lifeCounterShip = new ImageIcon("images/shipSkinSmall.gif");
+    private static final ImageIcon SHIP_ICON = new ImageIcon("images/shipSkin.gif");
+    private static final ImageIcon BONUS_ENEMY_ICON = new ImageIcon("images/bonusEnemySkin.gif");
+    private static final ImageIcon LIFE_COUNTER_SHIP_ICON = new ImageIcon("images/shipSkinSmall.gif");
 
-    // Constructor for all ship objects
     public Ship(int xPosition, int yPosition, Color color, KeyboardController control) {
         super(xPosition, yPosition, color, control);
     }
 
-    // Draw bonus enemy ship
-    public void bonusDraw(Graphics g) {
-
-        bonusEnemy.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-    }
-
-    // Draw ships for life counter
-    public void lifeDraw(Graphics g) {
-
-        lifeCounterShip.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-    }
-
-    // Draw player controlled ship
     @Override
     public void draw(Graphics g) {
-        ship.paintIcon(null, g, this.getXPosition(), this.getYPosition());
-
+        SHIP_ICON.paintIcon(null, g, this.getXPosition(), this.getYPosition());
     }
 
-    // Gets the hit box for all ship objects
+    public void bonusDraw(Graphics g) {
+        BONUS_ENEMY_ICON.paintIcon(null, g, this.getXPosition(), this.getYPosition());
+    }
+
+    public void lifeDraw(Graphics g) {
+        LIFE_COUNTER_SHIP_ICON.paintIcon(null, g, this.getXPosition(), this.getYPosition());
+    }
+
     @Override
     public Rectangle getBounds() {
-        Rectangle shipHitbox = new Rectangle(this.getXPosition(), this.getYPosition(), 50, 50);
-        return shipHitbox;
+        return new Rectangle(this.getXPosition(), this.getYPosition(), 50, 50);
     }
 
-    // Used to move all ship objects
     @Override
     public void move() {
-        // Left arrow key press
-        if (control.getKeyStatus(37)) {
+        if (control.getKeyStatus(37)) { // Left arrow key press
             xPos -= 10;
         }
-        // Right arrow key press
-        if (control.getKeyStatus(39)) {
+        if (control.getKeyStatus(39)) { // Right arrow key press
             xPos += 10;
         }
-        
         // Move from edge to edge without stopping
         if (xPos > 800) {
             xPos = -50;
@@ -69,3 +47,50 @@ public class Ship extends ControlledGameObject {
         }
     }
 }
+
+//
+//public class Ship extends ControlledGameObject {
+//
+//    private static final ImageIcon SHIP_ICON = new ImageIcon("images/shipSkin.gif");
+//    private static final ImageIcon BONUS_ENEMY_ICON = new ImageIcon("images/bonusEnemySkin.gif");
+//    private static final ImageIcon LIFE_COUNTER_SHIP_ICON = new ImageIcon("images/shipSkinSmall.gif");
+//
+//    public Ship(int xPosition, int yPosition, Color color, KeyboardController control) {
+//        super(xPosition, yPosition, color, control);
+//    }
+//
+//    @Override
+//    public void draw(Graphics g) {
+//        SHIP_ICON.paintIcon(null, g, this.getXPosition(), this.getYPosition());
+//    }
+//
+//    public void bonusDraw(Graphics g) {
+//        BONUS_ENEMY_ICON.paintIcon(null, g, this.getXPosition(), this.getYPosition());
+//    }
+//
+//    public void lifeDraw(Graphics g) {
+//        LIFE_COUNTER_SHIP_ICON.paintIcon(null, g, this.getXPosition(), this.getYPosition());
+//    }
+//
+//    @Override
+//    public Rectangle getBounds() {
+//        return new Rectangle(this.getXPosition(), this.getYPosition(), 50, 50);
+//    }
+//
+//    @Override
+//    public void move() {
+//        if (control.getKeyStatus(37)) { // Left arrow key press
+//            xPos -= 10;
+//        }
+//        if (control.getKeyStatus(39)) { // Right arrow key press
+//            xPos += 10;
+//        }
+//        // Move from edge to edge without stopping
+//        if (xPos > 800) {
+//            xPos = -50;
+//        }
+//        if (xPos < -50) {
+//            xPos = 800;
+//        }
+//    }
+//}

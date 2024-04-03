@@ -1,13 +1,12 @@
 
 package Game;
 
+import interfaces.Moveable;
+
 import java.awt.Color;
 
-/**
- *
- * @author Spartan Tech
- */
-public abstract class MovingGameObject extends GameObject implements Moveable{
+
+public abstract class MovingGameObject extends GameObject implements Moveable {
     
     int xVel;
     int yVel;
@@ -21,7 +20,6 @@ public abstract class MovingGameObject extends GameObject implements Moveable{
     
     }
     
-    // Accessors and mutators for every part of the MovingGameObject constructor
     public int getXVelocity()
     {
         return xVel;
@@ -40,7 +38,6 @@ public abstract class MovingGameObject extends GameObject implements Moveable{
     }
     @Override
     
-    // Used to move non controllable objects
     public void move()
     {
         this.xPos += xVel;

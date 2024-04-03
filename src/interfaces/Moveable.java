@@ -1,10 +1,7 @@
 
-package Game;
+package interfaces;
 
-/**
- *
- * @author Spartan Tech
- */
+
 public interface Moveable {
     
     public void move();

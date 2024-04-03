@@ -1,13 +1,9 @@
 
 package Game;
 
-import java.awt.Color;
-import javax.swing.JFrame;
+import javax.swing.*;
 
-/**
- *
- * @author Spartan Tech
- */
+
 public class GameFrame extends JFrame
 {
     private GamePanel game;
@@ -35,14 +31,5 @@ public class GameFrame extends JFrame
         game.start();  
     }
     
-    public static void main(String[] args) 
-    {
-         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new GameFrame().setVisible(true);
-            }
-        });
-        
-    }
+
 }

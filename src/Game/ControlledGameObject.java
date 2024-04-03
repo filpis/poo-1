@@ -1,13 +1,11 @@
 
 package Game;
 
-import Controller.KeyboardController;
+import interfaces.Moveable;
+
 import java.awt.Color;
 
-/**
- *
- * @author Spartan Tech
- */
+
 public abstract class ControlledGameObject extends GameObject implements Moveable {
     
     KeyboardController control;

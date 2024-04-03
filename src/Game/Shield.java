@@ -1,15 +1,8 @@
 
 package Game;
 
-import Game.GameObject;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 
-/**
- *
- * @author Spartan Tech
- */
 public class Shield extends GameObject {
 
     int width;
