@@ -81,7 +81,7 @@ public class GamePanel extends JPanel {
             enemyList.add(enemy);
         }
         if (level == 1) {
-            JOptionPane.showMessageDialog(null, "Seja bem-vindo ao Space Wars!\n\nInstruções do jogo:\n\n- Use as setas pra esquerda e direita para mover a nave\n- Precione espaço para atirar\n- A cada nível, os inimigos ficam mais rápidos\n- Atire para ganhar pontos extras!\n- TENHA UMA BOA JOGATINA!", "Título Personalizado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seja bem-vindo ao Space Wars!\n\nInstruções do jogo:\n\n- Use as setas pra esquerda e direita para mover a nave\n- Precione espaço para atirar\n- A cada nível, os inimigos ficam mais rápidos\n- Atire para ganhar pontos extras!\n- TENHA UMA BOA JOGATINA!", "", JOptionPane.INFORMATION_MESSAGE);
 
 //            JOptionPane.showMessageDialog(null, "Seja bem-vindo ao Space Wars!\n\nInstruções do jogo:\n\n- Use as setas pra esquerda e direita para mover a nave\n- Precione espaço para atirar\n- A cada nível, os inimigos ficam mais rápidos"
 //                    + "\n- Atire para ganhar pontos extras!\n- TENHA UMA BOA JOGATINA!");
